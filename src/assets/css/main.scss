@@ -1,0 +1,50 @@
+$font-size: 16px;
+
+body {
+    margin: 1em;
+    font-family: Arial, sans-serif;
+    font-size: $font-size;
+    background: #fafafa;
+}
+
+header,
+main,
+footer {
+    margin: 0 auto;
+    max-width: 42em;
+}
+
+
+h1 {
+    font-size: 1.75em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.0em;
+    margin: 1.5em 0 0.75em;
+}
+
+
+
+ul {
+    margin: 0.5em 0 1em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+p {
+    line-height: 1.25em;
+}
+
+
+
+// testing autoprefixer
+// :fullscreen a {
+//     transition: transform 1s;
+// }

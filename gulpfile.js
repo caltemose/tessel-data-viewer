@@ -6,6 +6,8 @@ var gulp = require('gulp')
     , marked = require('marked')
     , prettify = require('gulp-prettify')
     , fs = require('fs')
+    , coffee = require('gulp-coffee')
+    , copy = require('gulp-copy')
     , browserSync = require('browser-sync')
     , reload = browserSync.reload
     ;
@@ -15,7 +17,7 @@ var gulp = require('gulp')
 //
 
 gulp.task('clean', function(cb) {
-    del(['build/assets/css'], cb);//, 'build/assets/js', 'build/assets/img'], cb);
+    del(['build/assets/css'], cb);
 });
 
 gulp.task('css', function() {
@@ -29,8 +31,8 @@ gulp.task('css', function() {
 gulp.task('templates', function() {
     return gulp.src('src/**/*.jade')
         .pipe(jade({
-            pretty:true,
-            data: JSON.parse( fs.readFileSync('src/globals.json', { encoding: 'utf8' }) )
+            pretty: true
+            // , data: JSON.parse( fs.readFileSync('src/globals.json', { encoding: 'utf8' }) )
         }))
         .pipe(prettify({indent_size:4}))
         .pipe(gulp.dest('build/'))
@@ -38,9 +40,26 @@ gulp.task('templates', function() {
         .pipe(reload({stream:true}));
 });
 
+gulp.task('coffee', function() {
+    return gulp.src('src/assets/js/*.coffee')
+        .pipe(coffee({bare: true}).on('error', function (err) { console.log(err) }))
+        .pipe(gulp.dest('build/assets/js/'))
+        .pipe(notify({message:'coffee task complete'}));
+});
+
+gulp.task('copyassets', function () {
+    return gulp.src('src/assets/vendor/*')
+        .pipe(copy('build/', {prefix:1}))
+        .pipe(notify({message:'copyassets task complete'}));
+});
+
 gulp.task('watch', function () {
     gulp.watch('src/assets/css/**/*.scss', ['css']);
     gulp.watch('src/**/*.jade', ['templates']);
+    gulp.watch('src/assets/js/**/*.coffee', ['coffee']);
+    gulp.watch('build/assets/js/**', function (file) {
+        if (file.type === 'changed') browserSync.reload(file.path);
+    });
 });
 
 gulp.task('browser-sync', function() {
@@ -48,7 +67,8 @@ gulp.task('browser-sync', function() {
         server: {
             baseDir: './build',
             directory: true
-        }
+        },
+        port: 3333
     });
 });
 
@@ -58,8 +78,9 @@ gulp.task('browser-sync', function() {
 //
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'templates', 'watch', 'browser-sync');
+    gulp.start('css', 'templates', 'coffee', 'copyassets', 'watch', 'browser-sync');
 });
 
+// gulp.task('test', ['copyassets']);
 
 // gulp.task('default', ['js','css','templates','express','watch']);

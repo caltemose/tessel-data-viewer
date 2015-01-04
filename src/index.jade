@@ -1,0 +1,19 @@
+extends templates/layout.jade
+
+block pageVars
+    - var selectedNav = 'home'
+
+
+block title
+    title Tessel Data Viewer
+
+
+block contents
+
+    h2 Current Results:
+
+    ul#results
+
+
+block scripts
+    script(src='/assets/js/index.js')
