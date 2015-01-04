@@ -1,6 +1,5 @@
 Zepto ($) ->
     $.get 'http://localhost:3000/api/weather', (data) ->
-        console.log data.result.length
         displayResult result for result in data.result
 
 displayResult = (result) ->
