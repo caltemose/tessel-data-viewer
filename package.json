@@ -1,0 +1,13 @@
+{
+  "name": "tessel-data-viewer",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Web client for viewing data collected by Tessel data server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chad Altemose",
+  "license": "MIT",
+  "devDependencies": {}
+}
