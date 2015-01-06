@@ -5,16 +5,17 @@ block pageVars
 
 
 block title
-    title Tessel Data Viewer
+    title Tessel Data Viewer - Chart.js
 
 
 block contents
 
     h2 Current Results:
 
-    ul#results
+    canvas#myChart(width="1600" height="400")
 
 
 block scripts
     script(src='/assets/vendor/zepto.min.js')
-    script(src='/assets/js/index.js')
+    script(src='/assets/vendor/Chart.js')
+    script(src='/assets/js/chartjs.js')
