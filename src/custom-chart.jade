@@ -5,17 +5,15 @@ block pageVars
 
 
 block title
-    title Tessel Data Viewer - Chart.js
+    title Tessel Data Viewer - Custom Chart
 
 block contents
 
     p [sorting and filtering goes here] (blue = humidity, yellow = temp)
 
-
-    canvas#myChart(width="1400" height="400")
+    #myChart
 
 
 block scripts
     script(src='/assets/vendor/zepto.min.js')
-    script(src='/assets/vendor/Chart.js')
-    script(src='/assets/js/chartjs2.js')
+    script(src='/assets/js/custom-chart.js')

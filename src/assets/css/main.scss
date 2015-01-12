@@ -41,7 +41,35 @@ p {
     line-height: 1.25em;
 }
 
+$bar-height: 6px;
 
+.custom-chart-items {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+        margin: 0 0 1px;
+        padding: 0;
+        position: relative;
+        height: $bar-height;
+
+        > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: $bar-height;
+        }
+    }
+}
+
+.temperature {
+    background: rgba(0,225,80,0.5);
+}
+
+.humidity {
+    background: rgba(50,10,225,0.5);
+}
 
 // testing autoprefixer
 // :fullscreen a {

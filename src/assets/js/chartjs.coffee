@@ -7,11 +7,13 @@ displayResults = (data) ->
 
     labelNumbers = (num for num in [1..data.length])
 
-    fTemps = for result, tempF of data
-        tempF.temp.f
+    fTemps = for result, r of data 
+        r.temp.f
 
-    cTemps = for result, tempC of data
-        tempC.temp.c
+    cTemps = for result, r of data
+        r.temp.c
+
+
 
     weatherData = 
         labels: labelNumbers

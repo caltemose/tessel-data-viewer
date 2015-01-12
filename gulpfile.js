@@ -4,9 +4,10 @@ var gulp = require('gulp')
     , notify = require('gulp-notify')
     , jade = require('gulp-jade')
     , marked = require('marked')
-    , prettify = require('gulp-prettify')
     , fs = require('fs')
-    , coffee = require('gulp-coffee')
+    // , coffee = require('gulp-coffee')
+    , prettify = require('gulp-prettify')
+    , uglify = require('gulp-uglify')
     , copy = require('gulp-copy')
     , browserSync = require('browser-sync')
     , reload = browserSync.reload
@@ -40,23 +41,40 @@ gulp.task('templates', function() {
         .pipe(reload({stream:true}));
 });
 
-gulp.task('coffee', function() {
-    return gulp.src('src/assets/js/*.coffee')
-        .pipe(coffee({bare: true}).on('error', function (err) { console.log(err) }))
-        .pipe(gulp.dest('build/assets/js/'))
-        .pipe(notify({message:'coffee task complete'}));
+gulp.task('compress', function() {
+    return gulp.src('src/assets/js/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('build/assets/js'))
+        .pipe(notify({message:'compress task complete'}));
 });
 
-gulp.task('copyassets', function () {
-    return gulp.src('src/assets/vendor/*')
+
+// gulp.task('coffee', function() {
+//     return gulp.src('src/assets/js/*.coffee')
+//         .pipe(coffee({bare: true}).on('error', function (err) { console.log(err) }))
+//         .pipe(gulp.dest('build/assets/js/'))
+//         .pipe(notify({message:'coffee task complete'}));
+// });
+
+gulp.task('copyvendor', function () {
+    return gulp.src(['src/assets/vendor/*'])
         .pipe(copy('build/', {prefix:1}))
-        .pipe(notify({message:'copyassets task complete'}));
+        .pipe(notify({message:'copyvendor task complete'}));
 });
+
+gulp.task('copyjs', function () {
+    return gulp.src(['src/assets/js/*.js'])
+        .pipe(copy('build/', {prefix:1}))
+        .pipe(notify({message:'copyjs task complete'}));
+});
+
+gulp.task('copyall', ['copyvendor', 'copyjs']);
 
 gulp.task('watch', function () {
     gulp.watch('src/assets/css/**/*.scss', ['css']);
     gulp.watch('src/**/*.jade', ['templates']);
-    gulp.watch('src/assets/js/**/*.coffee', ['coffee']);
+    // gulp.watch('src/assets/js/**/*.coffee', ['coffee']);
+    gulp.watch('src/assets/js/**/*.js', ['compress']);
     gulp.watch('build/assets/js/**', function (file) {
         if (file.type === 'changed') browserSync.reload(file.path);
     });
@@ -78,7 +96,7 @@ gulp.task('browser-sync', function() {
 //
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'templates', 'coffee', 'copyassets', 'watch', 'browser-sync');
+    gulp.start('css', 'templates', 'copyall', 'watch', 'browser-sync');
 });
 
 // gulp.task('test', ['copyassets']);
