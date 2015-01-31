@@ -9,10 +9,22 @@ block title
 
 block contents
 
-    p [sorting and filtering goes here] (blue = humidity, yellow = temp)
+    form#filter
+        fieldset
+            label
+                | start 
+                input(name="start-date" size="28")
+            label
+                | end 
+                input(name="end-date" size="28")
+            label
+                | inc
+                input(name="inc" size="3")
+            
+            input(name="submit" type="submit" value="filter")
 
 
-    canvas#myChart(width="1400" height="400")
+    canvas#myChart(width="2200" height="400")
 
 
 block scripts
