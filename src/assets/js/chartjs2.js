@@ -1,5 +1,5 @@
 var getWeatherData, getQueryVariable, displayResults, startDate, endDate, startField, endField, weatherChart, inc, incField;
-var baseUrl = 'http://localhost:3000/api/weather/date/range/';
+var baseUrl = 'http://192.168.1.115:3000/api/weather/date/range/';
 
 
 Zepto(function ($) {
