@@ -1,4 +1,4 @@
-var getWeatherData, getQueryVariable, displayResults, startDate, endDate, startField, endField, weatherChart, inc, incField;
+var getWeatherData, getQueryVariable, displayResults, startDate, endDate, startField, endField, weatherChart, inc, incField, now;
 var baseUrl = 'http://192.168.1.115:3000/api/weather/date/range/';
 
 
@@ -6,8 +6,8 @@ Zepto(function ($) {
     startField = $('[name="start-date"]');
     endField = $('[name="end-date"]');
     incField = $('[name="inc"]');
-    startDate = getQueryVariable('start') || '2015-01-12T00:00';
-    endDate = getQueryVariable('end') || '2015-01-13T00:00';
+    startDate = getQueryVariable('start') ||  moment().subtract(1, 'days').format();
+    endDate = getQueryVariable('end') || moment().format() ;
     inc = getQueryVariable('inc') || 1;
 
     startField.val(startDate);
