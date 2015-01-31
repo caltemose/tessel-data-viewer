@@ -1,6 +1,6 @@
 var gulp = require('gulp')
     , del = require('del')
-    , sass = require('gulp-sass')
+    // , sass = require('gulp-sass') // not working on pi
     , notify = require('gulp-notify')
     , jade = require('gulp-jade')
     , marked = require('marked')
@@ -68,7 +68,13 @@ gulp.task('copyjs', function () {
         .pipe(notify({message:'copyjs task complete'}));
 });
 
-gulp.task('copyall', ['copyvendor', 'copyjs']);
+gulp.task('copycss', function () {
+    return gulp.src(['src/assets/css/*.css'])
+        .pipe(copy('build/', {prefix:1}))
+        .pipe(notify({message:'copycss task complete'}));
+});
+
+gulp.task('copyall', ['copyvendor', 'copyjs', 'copycss']);
 
 gulp.task('watch', function () {
     gulp.watch('src/assets/css/**/*.scss', ['css']);
@@ -96,7 +102,7 @@ gulp.task('browser-sync', function() {
 //
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'templates', 'copyall', 'watch', 'browser-sync');
+    gulp.start('templates', 'copyall', 'watch', 'browser-sync');
 });
 
 // gulp.task('test', ['copyassets']);
