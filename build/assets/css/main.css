@@ -1,0 +1,48 @@
+body {
+  margin: 1em;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  background: #fafafa; }
+
+header, main, footer {
+  display: block; }
+
+h1 {
+  font-size: 1.75em; }
+
+h2 {
+  font-size: 1.5em; }
+
+h3 {
+  font-size: 1em;
+  margin: 1.5em 0 0.75em; }
+
+ul {
+  margin: 0.5em 0 1em; }
+
+li {
+  margin-bottom: 0.5em; }
+
+p {
+  line-height: 1.25em; }
+
+.custom-chart-items {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+  .custom-chart-items li {
+    margin: 0 0 1px;
+    padding: 0;
+    position: relative;
+    height: 6px; }
+    .custom-chart-items li > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 6px; }
+
+.temperature {
+  background: rgba(0, 225, 80, 0.5); }
+
+.humidity {
+  background: rgba(50, 10, 225, 0.5); }

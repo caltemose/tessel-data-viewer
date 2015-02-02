@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Tessel Data Viewer - Chart.js</title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+        <meta content="width=device-width" name="viewport">
+        <link href="/assets/css/main.css" rel="stylesheet"> </head>
+
+    <body>
+        <header>
+            <h1>Tessel Data Viewer</h1> </header>
+        <main>
+            <form id="filter">
+                <fieldset>
+                    <label>from:
+                        <input name="start-year" type="number" step="1" value="2015" min="2015" max="2015">
+                        <input name="start-month" type="number" step="1" value="02" min="1" max="12">
+                        <input name="start-day" type="number" step="1" value="01" min="1" max="31">&nbsp;-
+                        <input name="start-hours" type="number" step="1" value="01" min="0" max="23">
+                        <input name="start-minutes" type="number" step="1" value="01" min="0" max="59">
+                        <input name="start-seconds" type="number" step="1" value="01" min="0" max="59"> </label>
+                    <label>to:
+                        <input name="end-year" type="number" step="1" value="2015" min="2015" max="2015">
+                        <input name="end-month" type="number" step="1" value="02" min="1" max="12">
+                        <input name="end-day" type="number" step="1" value="01" min="1" max="31">&nbsp;-
+                        <input name="end-hours" type="number" step="1" value="01" min="0" max="23">
+                        <input name="end-minutes" type="number" step="1" value="01" min="0" max="59">
+                        <input name="end-seconds" type="number" step="1" value="01" min="0" max="59"> </label>
+                    <label>steps
+                        <input name="steps" type="number" step="1" value="5"> </label>
+                    <input name="submit" type="submit" value="Load Data"> </fieldset>
+            </form>
+            <canvas id="myChart" width="2200" height="400"></canvas>
+        </main>
+        <script src="/assets/vendor/zepto.min.js"></script>
+        <script src="/assets/vendor/Chart.js"></script>
+        <script src="/assets/vendor/moment.js"></script>
+        <script src="/assets/js/chartjs2.js"></script>
+    </body>
+
+</html>
