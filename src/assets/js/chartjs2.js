@@ -1,25 +1,78 @@
-var getWeatherData, getQueryVariable, displayResults, startDate, endDate, startField, endField, weatherChart, inc, incField, now;
-var baseUrl = 'http://192.168.1.115:3000/api/weather/date/range/';
+var getWeatherData, getQueryVariable, displayResults, 
+    startDate, endDate, 
+    startField, endField, 
+    startFields, endFields,
+    steps, stepsField,
+    weatherChart;
+
+var ENDPOINT = 'http://192.168.1.115:3000/api/weather/date/range/';
+var STEPS_DEFAULT = 5;
 
 
 Zepto(function ($) {
     startField = $('[name="start-date"]');
     endField = $('[name="end-date"]');
-    incField = $('[name="inc"]');
-    startDate = getQueryVariable('start') ||  moment().subtract(1, 'days').format();
-    endDate = getQueryVariable('end') || moment().format() ;
-    inc = getQueryVariable('inc') || 1;
 
-    startField.val(startDate);
-    endField.val(endDate);
+    startFields = {
+        y: $('[name="start-year"'),
+        m: $('[name="start-month"'),
+        d: $('[name="start-day"'),
+        hh: $('[name="start-hours"'),
+        mm: $('[name="start-minutes"'),
+        ss: $('[name="start-seconds"')
+    };
+    endFields = {
+        y: $('[name="end-year"'),
+        m: $('[name="end-month"'),
+        d: $('[name="end-day"'),
+        hh: $('[name="end-hours"'),
+        mm: $('[name="end-minutes"'),
+        ss: $('[name="end-seconds"')
+    };
+
+    stepsField = $('[name="steps"]');
+
+    endDate = moment();
+    startDate = moment().subtract(3, 'hours');
+    
+    steps = STEPS_DEFAULT;
+
+    startFields.y.val(startDate.format('YYYY'));
+    startFields.m.val(startDate.format('MM'));
+    startFields.d.val(startDate.format('DD'));
+    startFields.hh.val(startDate.format('hh'));
+    startFields.mm.val(startDate.format('mm'));
+    startFields.ss.val(startDate.format('ss'));
+
+    endFields.y.val(endDate.format('YYYY'));
+    endFields.m.val(endDate.format('MM'));
+    endFields.d.val(endDate.format('DD'));
+    endFields.hh.val(endDate.format('hh'));
+    endFields.mm.val(endDate.format('mm'));
+    endFields.ss.val(endDate.format('ss'));
 
     $('#filter').submit(function () {
-        startDate = startField.val();
-        endDate = endField.val();
-        inc = parseInt(incField.val()) || 1;
-        if (startDate.length && endDate.length) {
-            getWeatherData();
-        }
+        var s = startFields.y.val() + '-';
+        s += startFields.m.val() + '-';
+        s += startFields.d.val() + 'T';
+        s += startFields.hh.val() + ':';
+        s += startFields.mm.val() + ':';
+        s += startFields.ss.val() + '-05:00';
+
+        var e = endFields.y.val() + '-';
+        e += endFields.m.val() + '-';
+        e += endFields.d.val() + 'T';
+        e += endFields.hh.val() + ':';
+        e += endFields.mm.val() + ':';
+        e += endFields.ss.val() + '-05:00';
+
+
+        steps = parseInt(stepsField.val()) || STEPS_DEFAULT;
+        
+        startDate = moment(s);
+        endDate = moment(e);
+
+        getWeatherData();
         return false;
     });
 
@@ -27,7 +80,9 @@ Zepto(function ($) {
 });
 
 getWeatherData = function () {
-    $.get(baseUrl + startDate + '/' + endDate, function (data) {
+    var url = ENDPOINT + startDate.format() + '/' + endDate.format();
+    console.log(url);
+    $.get(ENDPOINT + startDate.format() + '/' + endDate.format(), function (data) {
         console.log('result count:', data.results.length);
         displayResults(data.results);
     });
@@ -57,11 +112,13 @@ displayResults = function (data) {
     var fTemps = [];
     var cTemps = [];
     var humidity = [];
-    var i;
+    var i, d, label;
 
     // iterate through a subset of results and populat arrays for labels and temps
-    for(i=0; i<len; i+=inc) {
-        labels.push( new Date(data[i].date).toLocaleString() );
+    for(i=0; i<len; i+=steps) {
+        d = new Date(data[i].date);
+        label = d.getMonth()+1 + '/' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes();
+        labels.push(label);
         fTemps.push(data[i].temp.f);
         cTemps.push(data[i].temp.c);
         humidity.push(data[i].humid);

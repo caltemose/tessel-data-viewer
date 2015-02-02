@@ -1,7 +1,7 @@
 var gulp = require('gulp')
     , del = require('del')
-    // , sass = require('gulp-sass') // not working on pi
-    // , notify = require('gulp-notify') // not working on pi
+    , sass = require('gulp-sass')
+    , notify = require('gulp-notify')
     , jade = require('gulp-jade')
     , marked = require('marked')
     , fs = require('fs')
@@ -25,7 +25,7 @@ gulp.task('css', function() {
     return gulp.src('src/assets/css/main.scss')
         .pipe(sass({style:'expanded'}))
         .pipe(gulp.dest('build/assets/css'))
-        // .pipe(notify({message:'styles task complete'}))
+        .pipe(notify({message:'styles task complete'}))
         .pipe(reload({stream:true}));
 });
 
@@ -37,7 +37,7 @@ gulp.task('templates', function() {
         }))
         .pipe(prettify({indent_size:4}))
         .pipe(gulp.dest('build/'))
-        // .pipe(notify({message:'templates task complete'}))
+        .pipe(notify({message:'templates task complete'}))
         .pipe(reload({stream:true}));
 });
 
@@ -45,7 +45,7 @@ gulp.task('compress', function() {
     return gulp.src('src/assets/js/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('build/assets/js'))
-        // .pipe(notify({message:'compress task complete'}));
+        .pipe(notify({message:'compress task complete'}));
 });
 
 
@@ -59,22 +59,16 @@ gulp.task('compress', function() {
 gulp.task('copyvendor', function () {
     return gulp.src(['src/assets/vendor/*'])
         .pipe(copy('build/', {prefix:1}))
-        // .pipe(notify({message:'copyvendor task complete'}));
+        .pipe(notify({message:'copyvendor task complete'}));
 });
 
 gulp.task('copyjs', function () {
     return gulp.src(['src/assets/js/*.js'])
         .pipe(copy('build/', {prefix:1}))
-        // .pipe(notify({message:'copyjs task complete'}));
+        .pipe(notify({message:'copyjs task complete'}));
 });
 
-gulp.task('copycss', function () {
-    return gulp.src(['src/assets/css/*.css'])
-        .pipe(copy('build/', {prefix:1}))
-        // .pipe(notify({message:'copycss task complete'}));
-});
-
-gulp.task('copyall', ['copyvendor', 'copyjs', 'copycss']);
+gulp.task('copyall', ['copyvendor', 'copyjs']);
 
 gulp.task('watch', function () {
     gulp.watch('src/assets/css/**/*.scss', ['css']);
@@ -102,7 +96,11 @@ gulp.task('browser-sync', function() {
 //
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('templates', 'copyall', 'watch', 'browser-sync');
+    gulp.start('css', 'templates', 'copyall', 'watch', 'browser-sync');
+});
+
+gulp.task('build', ['clean'], function () {
+    gulp.start('css', 'templates', 'copyall');
 });
 
 // gulp.task('test', ['copyassets']);

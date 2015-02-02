@@ -10,18 +10,45 @@ block title
 block contents
 
     form#filter
+        //- fieldset
+        //-     label
+        //-         | start 
+        //-         input(name="start-date" size="28")
+        //-     label
+        //-         | end 
+        //-         input(name="end-date" size="28")
+        //-     label
+        //-         | steps
+        //-         input(name="steps" size="3")
+            
+        //-     input(name="submit" type="submit" value="Load Data")
+
         fieldset
             label
-                | start 
-                input(name="start-date" size="28")
+                | from: 
+                input(name="start-year" type="number" step="1" value="2015" min="2015" max="2015") 
+                input(name="start-month" type="number" step="1" value="02" min="1" max="12") 
+                input(name="start-day" type="number" step="1" value="01" min="1" max="31") 
+                | &nbsp;- 
+                input(name="start-hours" type="number" step="1" value="01" min="0" max="23") 
+                input(name="start-minutes" type="number" step="1" value="01" min="0" max="59") 
+                input(name="start-seconds" type="number" step="1" value="01" min="0" max="59") 
+
             label
-                | end 
-                input(name="end-date" size="28")
+                | to: 
+                input(name="end-year" type="number" step="1" value="2015" min="2015" max="2015") 
+                input(name="end-month" type="number" step="1" value="02" min="1" max="12") 
+                input(name="end-day" type="number" step="1" value="01" min="1" max="31") 
+                | &nbsp;- 
+                input(name="end-hours" type="number" step="1" value="01" min="0" max="23") 
+                input(name="end-minutes" type="number" step="1" value="01" min="0" max="59") 
+                input(name="end-seconds" type="number" step="1" value="01" min="0" max="59") 
+
             label
-                | inc
-                input(name="inc" size="3")
+                | steps
+                input(name="steps" type="number" step="1" value="5") 
             
-            input(name="submit" type="submit" value="filter")
+            input(name="submit" type="submit" value="Load Data") 
 
 
     canvas#myChart(width="2200" height="400")
