@@ -130,7 +130,7 @@ displayResults = function (data) {
             {
                 data: humidity,
                 label: "Humidity",
-                fillColor: "rgba(151,187,205,0.5)",
+                fillColor: "rgba(151,187,205,1)",
                 strokeColor: "rgba(151,187,205,1)",
                 // Line graphs
                 pointColor: "rgba(129,160,227,1)",
