@@ -128,15 +128,15 @@ displayResults = function (data) {
         labels: labels,
         datasets: [
             {
-                data: fTemps,
-                label: "Fahrenheit temps",
-                fillColor: "rgba(238,234,116,0.5)",
-                strokeColor: "rgba(220,220,220,1)",
+                data: humidity,
+                label: "Humidity",
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,1)",
                 // Line graphs
-                pointColor: "rgba(237,224,40,1)",
-                pointStrokeColor: "rgb(237,224,40)",
-                pointHighlightFill: "rgb(237,224,40)",
-                pointHighlightStroke: "rgba(238,234,116,1)"
+                pointColor: "rgba(129,160,227,1)",
+                pointStrokeColor: "rgb(129,160,227)",
+                pointHighlightFill: "rgb(120,150,220)",
+                pointHighlightStroke: "rgb(129,160,227)"
                 // Bar graphs
                 // highlightFill: "rgba(220,220,220,0.75)",
                 // highlightStroke: "rgba(220,220,220,1)"
@@ -156,15 +156,15 @@ displayResults = function (data) {
                 // highlightStroke: "rgba(220,220,220,1)"
             },
             {
-                data: humidity,
-                label: "Humidity",
-                fillColor: "rgba(151,187,205,0.5)",
-                strokeColor: "rgba(151,187,205,1)",
+                data: fTemps,
+                label: "Fahrenheit temps",
+                fillColor: "rgba(238,234,116,0.5)",
+                strokeColor: "rgba(220,220,220,1)",
                 // Line graphs
-                pointColor: "rgba(129,160,227,1)",
-                pointStrokeColor: "rgb(129,160,227)",
-                pointHighlightFill: "rgb(120,150,220)",
-                pointHighlightStroke: "rgb(129,160,227)"
+                pointColor: "rgba(237,224,40,1)",
+                pointStrokeColor: "rgb(237,224,40)",
+                pointHighlightFill: "rgb(237,224,40)",
+                pointHighlightStroke: "rgba(238,234,116,1)"
                 // Bar graphs
                 // highlightFill: "rgba(220,220,220,0.75)",
                 // highlightStroke: "rgba(220,220,220,1)"
