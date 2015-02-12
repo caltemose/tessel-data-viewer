@@ -3,7 +3,7 @@ var getWeatherData, getQueryVariable, displayResults,
     startField, endField, 
     startFields, endFields,
     steps, stepsField,
-    weatherChart;
+    weatherChart, feedback;
 
 var ENDPOINT = 'http://192.168.1.115:3000/api/weather/date/range/';
 var STEPS_DEFAULT = 5;
@@ -12,6 +12,7 @@ var STEPS_DEFAULT = 5;
 Zepto(function ($) {
     startField = $('[name="start-date"]');
     endField = $('[name="end-date"]');
+    feedback = $('#feedback');
 
     startFields = {
         y: $('[name="start-year"'),
@@ -37,17 +38,22 @@ Zepto(function ($) {
     
     steps = STEPS_DEFAULT;
 
+    //
+
+
+    //
+
     startFields.y.val(startDate.format('YYYY'));
     startFields.m.val(startDate.format('MM'));
     startFields.d.val(startDate.format('DD'));
-    startFields.hh.val(startDate.format('hh'));
+    startFields.hh.val(startDate.format('HH'));
     startFields.mm.val(startDate.format('mm'));
     startFields.ss.val(startDate.format('ss'));
 
     endFields.y.val(endDate.format('YYYY'));
     endFields.m.val(endDate.format('MM'));
     endFields.d.val(endDate.format('DD'));
-    endFields.hh.val(endDate.format('hh'));
+    endFields.hh.val(endDate.format('HH'));
     endFields.mm.val(endDate.format('mm'));
     endFields.ss.val(endDate.format('ss'));
 
@@ -72,6 +78,8 @@ Zepto(function ($) {
         startDate = moment(s);
         endDate = moment(e);
 
+        feedback.html('<p>' + startDate.format('lll') + ' to ' + endDate.format('lll') + ' with ' + steps + ' steps:</p>');
+
         getWeatherData();
         return false;
     });
@@ -81,9 +89,9 @@ Zepto(function ($) {
 
 getWeatherData = function () {
     var url = ENDPOINT + startDate.format() + '/' + endDate.format();
-    console.log(url);
+    feedback.append('<p>getting: ' + url + '<br>steps: ' + steps + '</p>');
     $.get(ENDPOINT + startDate.format() + '/' + endDate.format(), function (data) {
-        console.log('result count:', data.results.length);
+        feedback.append('<p>retrieved ' + data.results.length + ' documents.</p>');
         displayResults(data.results);
     });
 };
@@ -102,10 +110,7 @@ displayResults = function (data) {
     if (weatherChart && weatherChart.destroy) {
         weatherChart.destroy();
     }
-    
-    // canvas 2d context
-    var ctx = document.getElementById("myChart").getContext("2d");
-      
+          
     // data prep
     var len = data.length;
     var labels = [];
@@ -116,8 +121,8 @@ displayResults = function (data) {
 
     // iterate through a subset of results and populat arrays for labels and temps
     for(i=0; i<len; i+=steps) {
-        d = new Date(data[i].date);
-        label = d.getMonth()+1 + '/' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes();
+        d = moment(data[i].date).format('MM/DD HH:mm');
+        label = d; //d.getMonth()+1 + '/' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes();
         labels.push(label);
         fTemps.push(data[i].temp.f);
         cTemps.push(data[i].temp.c);
@@ -179,6 +184,16 @@ displayResults = function (data) {
         // barValueSpacing: 1,
         // barDatasetSpacing: 1
     };
+    feedback.append('<p>Drawing chart...</p>');
+
+    // canvas + 2d context
+    var container = document.getElementById("myChart");
     
+    // var $container = $(container);    
+    // $container.css('width', (labels.length * 50) + 'px');
+    // $container.css('height', '400px');
+
+    var ctx = container.getContext("2d");
     weatherChart = new Chart(ctx).Line(weatherData, options);
+    feedback.append('<p>finished drawing chart.</p>');
 };

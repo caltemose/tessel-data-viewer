@@ -34,6 +34,8 @@ block contents
                 input(name="start-minutes" type="number" step="1" value="01" min="0" max="59") 
                 input(name="start-seconds" type="number" step="1" value="01" min="0" max="59") 
 
+            | &nbsp; &nbsp; &nbsp;
+
             label
                 | to: 
                 input(name="end-year" type="number" step="1" value="2015" min="2015" max="2015") 
@@ -53,6 +55,8 @@ block contents
 
     canvas#myChart(width="2200" height="400")
 
+    #feedback
+        
 
 block scripts
     script(src='/assets/vendor/zepto.min.js')
