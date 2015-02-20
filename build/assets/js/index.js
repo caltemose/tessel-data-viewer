@@ -1,7 +1,7 @@
 var getWeatherData, displayResults, fixNum, fixDate, timer;
 
-// var ENDPOINT_HOST = 'http://192.168.1.11:3000';
-var ENDPOINT_HOST = 'http://localhost:3000';
+var ENDPOINT_HOST = 'http://192.168.1.11:3000';
+// var ENDPOINT_HOST = 'http://localhost:3000';
 var ENDPOINT_PATH = '/api/weather';
 
 
@@ -10,8 +10,10 @@ Zepto(function ($) {
 });
 
 getWeatherData = function () {
-    clearTimeout(id);
-    timer = null;
+    if (timer) {
+        clearTimeout(timer);
+        timer = null;
+    }
     $.get(ENDPOINT_HOST + ENDPOINT_PATH, function (data) {
         displayResults(data.result[0]);
         timer = setTimeout(getWeatherData, 5 * 60 * 1000);
