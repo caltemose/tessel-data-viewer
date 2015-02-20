@@ -2,7 +2,8 @@ body {
   margin: 1em;
   font-family: Arial, sans-serif;
   font-size: 16px;
-  background: #fafafa; }
+  background: #242F4D;
+  color: #eee; }
 
 header, main, footer {
   display: block; }
@@ -48,4 +49,9 @@ p {
   background: rgba(50, 10, 225, 0.5); }
 
 .big-list {
+  list-style-type: none;
   font-size: 2em; }
+  .big-list li {
+    margin: 0.4em 0;
+    padding: 0.2em 0.4em;
+    background: #2c3a5e; }

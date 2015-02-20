@@ -4,7 +4,8 @@ body {
     margin: 1em;
     font-family: Arial, sans-serif;
     font-size: $font-size;
-    background: #fafafa;
+    background: #242F4D;
+    color: #eee;
 }
 
 header,
@@ -72,7 +73,14 @@ $bar-height: 6px;
 }
 
 .big-list {
+    list-style-type: none;
     font-size: 2em;
+
+    li {
+        margin: 0.4em 0;
+        padding: 0.2em 0.4em;
+        background: lighten(#242F4D, 5);
+    }
 }
 
 // testing autoprefixer

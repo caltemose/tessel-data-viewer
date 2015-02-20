@@ -33,6 +33,5 @@ fixNum = function (num) {
 };
 
 fixDate = function (datestring) {
-    var date = new Date(datestring);
-    return date.toLocaleString();
+    return moment(datestring).format('LLL');
 };
