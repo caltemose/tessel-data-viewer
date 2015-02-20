@@ -11,8 +11,16 @@
         <header>
             <h1>Tessel Data Viewer</h1> </header>
         <main>
-            <h2>Current Results:</h2>
-            <ul id="results"></ul>
+            <h2>Current Temp:</h2>
+            <div>
+                <ul class="big-list">
+                    <li><span id="tempF"></span>&deg;F</li>
+                    <li><span id="tempC"></span>&deg;C</li>
+                    <li><span id="humid"></span>%RH</li>
+                    <li><span id="date"></span>
+                    </li>
+                </ul>
+            </div>
         </main>
         <script src="/assets/vendor/zepto.min.js"></script>
         <script src="/assets/js/index.js"></script>

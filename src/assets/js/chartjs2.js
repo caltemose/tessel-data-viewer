@@ -5,7 +5,8 @@ var getWeatherData, getQueryVariable, displayResults,
     steps, stepsField,
     weatherChart, feedback;
 
-var ENDPOINT = 'http://192.168.1.115:3000/api/weather/date/range/';
+// var ENDPOINT = 'http://192.168.1.11:3000/api/weather/date/range/';
+var ENDPOINT = 'http://localhost:3000/api/weather/date/range/';
 var STEPS_DEFAULT = 5;
 
 
