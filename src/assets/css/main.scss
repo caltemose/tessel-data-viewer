@@ -5,7 +5,7 @@ body {
     font-family: Arial, sans-serif;
     font-size: $font-size;
     background: #242F4D;
-    color: #eee;
+    color: #999;
 }
 
 header,
@@ -14,9 +14,9 @@ footer {
     display: block;
 }
 
-
 h1 {
-    font-size: 1.75em;
+    font-size: 1em;
+    text-align: center;
 }
 
 h2 {
@@ -72,16 +72,39 @@ $bar-height: 6px;
     background: rgba(50,10,225,0.5);
 }
 
+.current-weather {
+    font-size: 1.5em;
+}
+
 .big-list {
     list-style-type: none;
-    font-size: 2em;
+    margin: 0;
+    padding: 0;
 
     li {
-        margin: 0.4em 0;
-        padding: 0.2em 0.4em;
+        margin: 0.5em 0;
+        padding: 0.2em;
         background: lighten(#242F4D, 5);
+        text-align: center;
     }
 }
+
+.current-time {
+    margin: 1em 0;
+    padding: 1em;
+    text-align: center;
+    background: lighten(#242F4D, 20);
+}
+
+#currentTime {
+    padding-left: 0.5em;
+}
+
+.live {
+    color: #eee;
+    font-size: 1.5em;
+}
+
 
 // testing autoprefixer
 // :fullscreen a {

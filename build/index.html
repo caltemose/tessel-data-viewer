@@ -2,22 +2,24 @@
 <html lang="en">
 
     <head>
-        <title>Current Temp on the Porch</title>
+        <title>Current Weather</title>
         <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
         <meta content="width=device-width" name="viewport">
         <link href="/assets/css/main.css" rel="stylesheet"> </head>
 
     <body>
         <header>
-            <h1>Current Weather</h1> </header>
+            <h1>Tessel Data Viewer</h1> </header>
         <main>
-            <div>
+            <div class="current-weather">
                 <ul class="big-list">
-                    <li><span id="tempF"></span>&deg;F / <span id="tempC"></span>&deg;C</li>
-                    <li><span id="humid"></span>%RH</li>
-                    <li><span id="date"></span>
+                    <li><span id="tempF" class="live"></span>&deg;F / <span id="tempC" class="live"></span>&deg;C</li>
+                    <li><span id="humid" class="live"></span>%RH</li>
+                    <li><span id="date" class="live"></span>
                     </li>
                 </ul>
+                <div class="current-time">Current Time:<span id="currentTime" class="live"></span>
+                </div>
             </div>
         </main>
         <script src="/assets/vendor/zepto.min.js"></script>

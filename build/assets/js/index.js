@@ -1,13 +1,21 @@
-var getWeatherData, displayResults, fixNum, fixDate, timer;
+var getWeatherData, displayResults, fixNum, fixDate, timer, currentTimer, updateCurrentTime;
 
 var ENDPOINT_HOST = 'http://192.168.1.11:3000';
 // var ENDPOINT_HOST = 'http://localhost:3000';
 var ENDPOINT_PATH = '/api/weather';
 
+var DATE_FORMAT = 'LLL'
+
 
 Zepto(function ($) {
     getWeatherData();
+    updateCurrentTime();
+    currentTimer = setInterval(updateCurrentTime, 15*1000);
 });
+
+updateCurrentTime = function () {
+    $('#currentTime').html(moment().format(DATE_FORMAT));
+}
 
 getWeatherData = function () {
     if (timer) {
@@ -21,7 +29,7 @@ getWeatherData = function () {
 };
 
 displayResults = function (result) {
-    console.log(result);
+    // console.log(result);
     $('#tempF').html(fixNum(result.temp.f));
     $('#tempC').html(fixNum(result.temp.c));
     $('#humid').html(fixNum(result.humid));
@@ -33,5 +41,5 @@ fixNum = function (num) {
 };
 
 fixDate = function (datestring) {
-    return moment(datestring).format('LLL');
+    return moment(datestring).format(DATE_FORMAT);
 };

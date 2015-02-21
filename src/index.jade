@@ -5,24 +5,29 @@ block pageVars
 
 
 block title
-    title Current Temp on the Porch
+    title Current Weather
 
 
 block contents
 
-    div
+    div.current-weather
 
         ul.big-list
             li
-                span#tempF
+                span.live#tempF
                 | &deg;F / 
-                span#tempC
+                span.live#tempC
                 | &deg;C
             li
-                span#humid
+                span.live#humid
                 | %RH
             li
-                span#date
+                span.live#date
+
+        div.current-time
+            | Current Time:
+            span.live#currentTime
+
 
 
 block scripts
