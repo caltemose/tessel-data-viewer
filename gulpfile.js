@@ -74,7 +74,8 @@ gulp.task('watch', function () {
     gulp.watch('src/assets/css/**/*.scss', ['css']);
     gulp.watch('src/**/*.jade', ['templates']);
     // gulp.watch('src/assets/js/**/*.coffee', ['coffee']);
-    gulp.watch('src/assets/js/**/*.js', ['compress']);
+    // gulp.watch('src/assets/js/**/*.js', ['compress']);
+    gulp.watch('src/assets/js/**/*.js', ['copyjs']);
     gulp.watch('build/assets/js/**', function (file) {
         if (file.type === 'changed') browserSync.reload(file.path);
     });

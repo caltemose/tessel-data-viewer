@@ -1,13 +1,14 @@
-var getWeatherData, getQueryVariable, displayResults, 
+var getWeatherData, getQueryVariable, displayResults, padZero,
     startDate, endDate, 
     startField, endField, 
     startFields, endFields,
     steps, stepsField,
     weatherChart, feedback;
 
-// var ENDPOINT = 'http://192.168.1.11:3000/api/weather/date/range/';
-var ENDPOINT = 'http://localhost:3000/api/weather/date/range/';
-var STEPS_DEFAULT = 5;
+var ENDPOINT = 'http://192.168.1.11:3000/api/weather/date/range/';
+// var ENDPOINT = 'http://localhost:3000/api/weather/date/range/';
+var STEPS_DEFAULT = 15;
+var DURATION = 24; // hours
 
 
 Zepto(function ($) {
@@ -34,15 +35,22 @@ Zepto(function ($) {
 
     stepsField = $('[name="steps"]');
 
-    endDate = moment();
-    startDate = moment().subtract(3, 'hours');
-    
-    steps = STEPS_DEFAULT;
+    // use GET vars if provided
+    var GET_start = getQueryVariable('start');
+    var GET_end = getQueryVariable('end');
+    var GET_steps = getQueryVariable('steps');
 
-    //
+    if (GET_start && GET_end && GET_steps) {
+        endDate = moment(GET_end);
+        startDate = moment(GET_start);
+        steps = parseInt(GET_steps);
 
+    } else {
+        endDate = moment();
+        startDate = moment().subtract(DURATION, 'hours');    
+        steps = STEPS_DEFAULT;
 
-    //
+    }
 
     startFields.y.val(startDate.format('YYYY'));
     startFields.m.val(startDate.format('MM'));
@@ -58,21 +66,22 @@ Zepto(function ($) {
     endFields.mm.val(endDate.format('mm'));
     endFields.ss.val(endDate.format('ss'));
 
+    stepsField.val(steps);
+
     $('#filter').submit(function () {
         var s = startFields.y.val() + '-';
-        s += startFields.m.val() + '-';
-        s += startFields.d.val() + 'T';
-        s += startFields.hh.val() + ':';
-        s += startFields.mm.val() + ':';
-        s += startFields.ss.val() + '-05:00';
+        s += padZero(startFields.m.val()) + '-';
+        s += padZero(startFields.d.val()) + 'T';
+        s += padZero(startFields.hh.val()) + ':';
+        s += padZero(startFields.mm.val()) + ':';
+        s += padZero(startFields.ss.val()) + '-05:00';
 
         var e = endFields.y.val() + '-';
-        e += endFields.m.val() + '-';
-        e += endFields.d.val() + 'T';
-        e += endFields.hh.val() + ':';
-        e += endFields.mm.val() + ':';
-        e += endFields.ss.val() + '-05:00';
-
+        e += padZero(endFields.m.val()) + '-';
+        e += padZero(endFields.d.val()) + 'T';
+        e += padZero(endFields.hh.val()) + ':';
+        e += padZero(endFields.mm.val()) + ':';
+        e += padZero(endFields.ss.val()) + '-05:00';
 
         steps = parseInt(stepsField.val()) || STEPS_DEFAULT;
         
@@ -88,12 +97,18 @@ Zepto(function ($) {
     getWeatherData();
 });
 
+padZero = function (num) {
+    num = parseInt(num);
+    console.log(num);
+    return num < 10 ? '0' + num : num;
+};
+
 getWeatherData = function () {
     var url = ENDPOINT + startDate.format() + '/' + endDate.format();
     feedback.append('<p>getting: ' + url + '<br>steps: ' + steps + '</p>');
     $.get(ENDPOINT + startDate.format() + '/' + endDate.format(), function (data) {
         feedback.append('<p>retrieved ' + data.results.length + ' documents.</p>');
-        displayResults(data.results);
+        displayResults(data.results.reverse());
     });
 };
 
@@ -111,7 +126,7 @@ displayResults = function (data) {
     if (weatherChart && weatherChart.destroy) {
         weatherChart.destroy();
     }
-          
+
     // data prep
     var len = data.length;
     var labels = [];
@@ -179,6 +194,10 @@ displayResults = function (data) {
         ]
     };
     
+    // Chart.defaults.global = {
+    //     scaleStartValue: -10
+    // }
+
     options = {
         pointDotRadius: 3,
         animation: false

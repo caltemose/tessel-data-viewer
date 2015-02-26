@@ -74,3 +74,18 @@ p {
 .live {
   color: #eee;
   font-size: 1.5em; }
+
+.buttons {
+  margin: 0 auto;
+  max-width: 40em;
+  text-align: center; }
+  .buttons a {
+    display: inline-block;
+    margin: 0.5em;
+    padding: 0.75em 1.5em;
+    background: #FFBA19;
+    color: #6B111D;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 0.3em; }
